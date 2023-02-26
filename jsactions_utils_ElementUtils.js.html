@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>jsactions/utils/ElementUtils.js - ActionHero Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <script src="scripts/google-analytics.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <div id="nav-logo-container">
+        <a href="index.html">
+            <img id="nav-logo" src="images/jsactions-logo.png" />
+        </a>
+    </div>
+    <h3>Tutorials</h3><ul><li><a href="tutorial-introduction.html">Introduction</a></li><li><a href="tutorial-quickstart.html">QuickStart</a></li><li><a href="tutorial-understandhelloworld.html">Creating HelloWorldApp</a></li><li><a href="tutorial-versioninfo.html">Version Info</a></li></ul><h3>Classes</h3><ul><li><a href="BindingUtil.html">BindingUtil</a></li><li><a href="ClassError.html">ClassError</a></li><li><a href="Component.html">Component</a></li><li><a href="Container.html">Container</a></li><li><a href="core.Event.html">Event</a></li><li><a href="core.EventDispatcher.html">EventDispatcher</a></li><li><a href="ElementState.html">ElementState</a></li><li><a href="ElementUtils.html">ElementUtils</a></li><li><a href="EventBroadCasters.html">EventBroadCasters</a></li><li><a href="EventChannel.html">EventChannel</a></li><li><a href="EventRouter.html">EventRouter</a></li><li><a href="EventUtils.html">EventUtils</a></li><li><a href="GenericEvent.html">GenericEvent</a></li><li><a href="InstanceId.html">InstanceId</a></li><li><a href="NavigationEvent.html">NavigationEvent</a></li><li><a href="Router.html">Router</a></li><li><a href="View.html">View</a></li><li><a href="ViewManager.html">ViewManager</a></li><li><a href="ViewNavigator.html">ViewNavigator</a></li><li><a href="ViewStack.html">ViewStack</a></li></ul>
+    <div id="versionNavigation"></div>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">jsactions/utils/ElementUtils.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/** 
+ * @license
+ * Copyright (c) 2023 Gaurang Lade
+ * 
+ * MIT License
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
+import InstanceId from './InstanceId';
+
+
+/**
+ *
+ * ElementUtils creates DOM wrapper for JSactions core Objects such as View, ViewNavigator, ViewStack, Component, Container
+ * 
+ * JSactions core object ->  HTML DOM wrapper
+ * 
+   ViewNavigator HTML DOM wrapper:
+       &amp;lt; div class="jsact-viewnavigator ${navigatorId}" &amp;gt;
+
+   ViewStack HTML DOM wrapper:
+        &amp;lt; div class="jsact-viewstack ${viewstackId}" &amp;gt;
+
+   View HTML DOM wrapper:
+         &amp;lt; div class="jsact-view ${viewId}" &amp;gt;
+
+   Container HTML DOM wrapper:
+         &amp;lt; div class="jsact-container ${containerId}" &amp;gt;
+
+   Component HTML DOM wrapper:
+        &amp;lt; div class="jsact-component ${componentId}" &amp;gt;
+ * 
+ * 
+
+ */
+class ElementUtils {
+    
+    /**
+     *
+     * Find  Component DOM Element by ComponentID
+     * @example
+        let tmpViewId = this.id; 
+        let buttonEl = ElementUtils.component("buttonComp",tmpViewId);
+
+     * @static
+     * @param {string} _componentId
+     * @param {string} _viewId
+     * @returns {string} Component DOM Element with ".jsact-component" css class
+     * @memberof ElementUtils
+     */
+    static component(_componentId,_viewId) {
+        let viewEl = ElementUtils.view(_viewId);
+        return viewEl.querySelector(".jsact-component." + _componentId);
+    }
+
+
+    /**
+     *
+     * Find  Container DOM Element by ContainerID
+     * @example 
+        let tmpViewId = this.id; 
+        let buttonContEl = ElementUtils.container("helloContainer",tmpViewId);
+     *
+     * @static
+     * @param {string} _containerId
+     * @param {string} _viewId
+     * @returns {string} Container DOM Element with ".jsact-container" css class
+     * @memberof ElementUtils
+     */
+    static container(_containerId,_viewId) {
+        let viewEl = ElementUtils.view(_viewId);
+        return viewEl.querySelector(".jsact-container." + _containerId);
+    }
+
+
+    /**
+     *
+     * Find  View DOM Element by ViewID
+     * @example 
+        let tmpViewId = this.id; 
+        let viewEl = ElementUtils.view(tmpViewId);
+
+     * @static
+     * @param {string} _viewId
+     * @returns {string} View DOM Element with ".jsact-view" css class
+     * @memberof ElementUtils
+     */
+    static view(_viewId) {
+        return document.querySelector(".jsact-view." + _viewId);;
+    }
+
+
+    /**
+     *
+     * Find  ViewStack DOM Element by ViewStackID
+     * @example 
+        let tmpViewstackId = this.id; 
+        let viewEl = ElementUtils.viewStack(tmpViewstackId);
+     * @static
+     * @param {string} _viewStackId
+     * @returns {string} ViewStack DOM Element with ".jsact-viewstack" css class
+     * @memberof ElementUtils
+     */
+    static viewStack(_viewStackId) {
+        return document.querySelector(".jsact-viewstack." + _viewStackId);;
+    }
+
+
+    /**
+     *
+     * Find  ViewNavigator DOM Element by ViewNavigatorID
+     * @example 
+        let tmpNavigatorId = this.id; 
+        let viewEl = ElementUtils.viewNavigator(tmpNavigatorId);
+     * @static
+     * @param {string} _viewNavId
+     * @returns {string} ViewNavigator DOM Element with ".jsact-viewnavigator" css class
+     * @memberof ElementUtils
+     */
+    static viewNavigator(_viewNavId) {
+        return document.querySelector(".jsact-viewnavigator." + _viewNavId);;
+    }
+
+
+    /**
+     *
+     * Creates  Component Base DOM Element by ComponentID
+     * @static
+     * @param {string} _componentId
+     * @returns {string} Component DOM Element with ".jsact-component" css class
+     * @memberof ElementUtils
+     */
+    static constructComponentBaseElement(_componentId) {
+        return `&lt;div class="jsact-component ${_componentId}">&lt;/div>`;
+    }
+
+
+    /**
+     *
+     * Creates  Container Base DOM Element by ContainerID
+     * @static
+     * @param {string} _containerId
+     * @returns {string} Container DOM Element with ".jsact-container" css class
+     * @memberof ElementUtils
+     */
+    static constructContainerBaseElement(_containerId) {
+        return `&lt;div class="jsact-container ${_containerId}">&lt;/div>`;
+    }
+
+    /**
+     *
+     * Creates  View Base DOM Element by ViewID
+     * @static
+     * @param {string} _viewId
+     * @returns {string} View DOM Element with ".jsact-view" css class
+     * @memberof ElementUtils
+     */
+    static constructViewBaseElement(_viewId) {
+        return `&lt;div class="jsact-view ${_viewId}">&lt;/div>`;
+    }
+
+
+    /**
+     *
+     * Creates  ViewStack Base DOM Element by ViewStackID
+     * @static
+     * @param {string} _viewStackId
+     * @returns {string} ViewStack DOM Element with ".jsact-viewstack" css class
+     * @memberof ElementUtils
+     */
+    static constructViewStackBaseElement(_viewStackId) {
+        return `&lt;div class="jsact-viewstack ${_viewStackId}">&lt;/div>`;
+    }
+
+
+    /**
+     *
+     * Creates  ViewNavigator Base DOM Element by ViewNavigatorID
+     * @static
+     * @param {string} _navigatorId
+     * @returns {string} ViewNavigator DOM Element with ".jsact-viewnavigator" css class
+     * @memberof ElementUtils
+     */
+    static constructNavigatorBaseElement(_navigatorId) {
+        return `&lt;div class="jsact-viewnavigator ${_navigatorId}">&lt;/div>`;
+    }
+
+
+    /**
+     *
+     * Hide DOM Element
+     * @static
+     * @param {string} _el - DOM Element
+     * @memberof ElementUtils
+     */
+    static hideElement(_el) {
+        _el.style.display = 'none';
+    }
+
+
+    /**
+     *
+     * Show DOM Element
+     * @static
+     * @param {string} _el -  DOM Element
+     * @memberof ElementUtils
+     */
+    static showElement(_el) {
+        _el.style.display = 'block';
+    }
+
+
+    /**
+     *
+     * Check if DOM Element is visible
+     * @static
+     * @param {string} _el - DOM Element
+     * @returns {Boolean} 
+     * @memberof ElementUtils
+     */
+    static isVisible(_el){
+        return (_el.style.display == "block") ? true :false;
+    }
+
+
+    /**
+     *
+     * Generate Unique Component Instance ID
+     * @static
+     * @returns {string} 
+     * @memberof ElementUtils
+     */
+    static generateComponentId(){
+        return "component"+InstanceId.generate;
+    }
+
+
+    /**
+     *
+     * Generate Unique Container Instance ID
+     * @static
+     * @returns {string}
+     * @memberof ElementUtils
+     */
+    static generateContainerId(){
+        return "container"+InstanceId.generate;
+    }
+}
+
+export default ElementUtils;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Learn more about ActionHero @ <a href="https://www.actionherojs.com">www.actionherojs.com</a>
+    <br />
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.11</a> using the <a href="https://github.com/actionhero/docdash-actionhero-theme">docdash-actionhero-theme</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+<script src="/scripts/VERSIONS.js"></script>
+<script src="/scripts/versionNavigation.js"></script>
+</body>
+</html>

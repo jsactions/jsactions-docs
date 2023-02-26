@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>jsactions/core/Router.js - ActionHero Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <script src="scripts/google-analytics.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <div id="nav-logo-container">
+        <a href="index.html">
+            <img id="nav-logo" src="images/jsactions-logo.png" />
+        </a>
+    </div>
+    <h3>Tutorials</h3><ul><li><a href="tutorial-introduction.html">Introduction</a></li><li><a href="tutorial-quickstart.html">QuickStart</a></li><li><a href="tutorial-understandhelloworld.html">Creating HelloWorldApp</a></li><li><a href="tutorial-versioninfo.html">Version Info</a></li></ul><h3>Classes</h3><ul><li><a href="BindingUtil.html">BindingUtil</a></li><li><a href="ClassError.html">ClassError</a></li><li><a href="Component.html">Component</a></li><li><a href="Container.html">Container</a></li><li><a href="core.Event.html">Event</a></li><li><a href="core.EventDispatcher.html">EventDispatcher</a></li><li><a href="ElementState.html">ElementState</a></li><li><a href="ElementUtils.html">ElementUtils</a></li><li><a href="EventBroadCasters.html">EventBroadCasters</a></li><li><a href="EventChannel.html">EventChannel</a></li><li><a href="EventRouter.html">EventRouter</a></li><li><a href="EventUtils.html">EventUtils</a></li><li><a href="GenericEvent.html">GenericEvent</a></li><li><a href="InstanceId.html">InstanceId</a></li><li><a href="NavigationEvent.html">NavigationEvent</a></li><li><a href="Router.html">Router</a></li><li><a href="View.html">View</a></li><li><a href="ViewManager.html">ViewManager</a></li><li><a href="ViewNavigator.html">ViewNavigator</a></li><li><a href="ViewStack.html">ViewStack</a></li></ul>
+    <div id="versionNavigation"></div>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">jsactions/core/Router.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/** 
+ * @license
+ * Copyright (c) 2023 Gaurang Lade
+ * 
+ * MIT License
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+/**
+ *
+ * Router holds and manages array of Path routes
+ * Path Routes are used by ViewManager to find associated Navigator and Viewstack
+ * Viewmanager find Viewnavigator based on Routes info set in Router Object
+ * see Example
+ */
+class Router {
+
+    /**
+     *  @example Sample Router Object is to be implement in "AppViewManager" class (subclass of ViewManager) 
+     
+        initRoutes() {
+            let tmpRoutes = [
+                { path: "/login", navigatorId: " LoginNavigator",parentId: "root" },
+                { path: "/file", navigatorId: " FileNavigator",parentId: "root" },
+                { path: "/logout", navigatorId: "ExitNavigator",parentId: "root" },
+            ]
+            this.routes = new Router(tmpRoutes);
+        }
+
+      Here "path" is routeID, "navigatorId" is viewNavigatorId, "parentId" is DOM Element Id or ViewId or ContainerId.
+      By Default Main DOM Element have id="root"
+
+     * 
+     * @param {array} [_routes=[]] - Path routes array
+     * @memberof Router
+     */
+    constructor(_routes = []) {
+        this.routes = _routes;
+    }
+
+
+    /**
+     *
+     * @description Adds new Path Route
+     * @param {string} _path - Path Name
+     * @param {string} _navigatorId -  Navigator ID
+     * @param {string} _parentId -  Parent Object / Element ID
+     * @memberof Router
+     */
+    addRoute(_path, _navigatorId, _parentId) {
+        let route = {};
+        route.path = _path;
+        route.navigatorId = _navigatorId;
+        route.parentId = _parentId;
+        this.routes.push(route);
+    }
+
+
+    /**
+     *
+     * @description finds associated Navigator by Path route Name
+     * @param {string} _route
+     * @returns {Array} - NavigatorID Array
+     * @memberof Router
+     */
+    findNavigator(_route) {
+        let tmpNavigatorIds = [];
+        for (let i = 0; i &lt; this.routes.length; i++) {
+            if (this.routes[i].path === _route)
+                tmpNavigatorIds.push(this.routes[i].navigatorId);
+        }
+        return tmpNavigatorIds;
+    }
+
+    findRouteNavigators(_route){
+        //let path = "/rootpath/path9/path8"
+        let tmpNewRouteArray = _route.split("/");
+        let tmpNavigatorIds = [];
+        tmpNewRouteArray.shift();
+        let length =  tmpNewRouteArray.length;
+        let routesArray = [];
+        for (let x = 0; x &lt; tmpNewRouteArray.length; x++) {
+            let tmppathStr = "";
+            for (let y = 0; y &lt;= x; y++){
+                tmppathStr += "/" + tmpNewRouteArray[y];
+            }
+            routesArray.push(tmppathStr);
+            //["/rootpath", "/rootpath/path9", "/rootpath/path9/path8"]
+        
+        }
+        for (let z = 0; z &lt; routesArray.length; z++) {
+            let tmpRouteArr = this.findNavigator(routesArray[z]);
+            tmpNavigatorIds[z] = tmpRouteArr[0];
+        }
+        return tmpNavigatorIds;
+    }
+
+
+    /**
+     *
+     * @description finds associated Navigator Parent by navigator ID
+     * @param {string} _navigatorId
+     * @returns {string} - Parent ID
+     * @memberof Router
+     */
+    findNavigatorParent(_navigatorId) {
+        let tmpParentId = "root";
+        for (let i = 0; i &lt; this.routes.length; i++) {
+            if (this.routes[i].navigatorId === _navigatorId)
+                tmpParentId = this.routes[i].parentId;
+        }
+        return tmpParentId;
+    }
+
+
+    /**
+     *
+     * @description finds associated ViewStack  by Path route Name
+     * @param {string} _route
+     * @returns {string} - ViewStack ID
+     * @memberof Router
+     */
+    findViewStack(_route) {
+        let tmpViewStackId = null;
+        for (let j = 0; j &lt; this.routes.length; j++) {
+            if (this.routes[j].path == _route)
+                tmpViewStackId = this.routes[j].viewstackId;
+        }
+        return tmpViewStackId;
+    }
+
+    /**
+     *
+     * @description Remove and Resets existing path routes
+     * @memberof Router
+     */
+    reset() {
+        this.routes = [];
+    }
+
+    /**
+     *
+     * @description prints path Routes
+     * @memberof Router
+     */
+    printRoutes() {
+        if (this.routes.length > 0) {
+            for (let i = 0; i &lt; this.routes.length; i++) {
+                console.log("path:" + this.routes[i].path + " navigatorId:" + this.routes[i].navigatorId);
+            }
+        } else {
+            console.log("No Routes Found");
+        }
+    }
+
+}
+
+export default Router;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Learn more about ActionHero @ <a href="https://www.actionherojs.com">www.actionherojs.com</a>
+    <br />
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.11</a> using the <a href="https://github.com/actionhero/docdash-actionhero-theme">docdash-actionhero-theme</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+<script src="/scripts/VERSIONS.js"></script>
+<script src="/scripts/versionNavigation.js"></script>
+</body>
+</html>

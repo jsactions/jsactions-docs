@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Tutorial: Creating HelloWorldApp - ActionHero Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <script src="scripts/google-analytics.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <div id="nav-logo-container">
+        <a href="index.html">
+            <img id="nav-logo" src="images/jsactions-logo.png" />
+        </a>
+    </div>
+    <h3>Tutorials</h3><ul><li><a href="tutorial-introduction.html">Introduction</a></li><li><a href="tutorial-quickstart.html">QuickStart</a></li><li><a href="tutorial-understandhelloworld.html">Creating HelloWorldApp</a></li><li><a href="tutorial-versioninfo.html">Version Info</a></li></ul><h3>Classes</h3><ul><li><a href="BindingUtil.html">BindingUtil</a></li><li><a href="ClassError.html">ClassError</a></li><li><a href="Component.html">Component</a></li><li><a href="Container.html">Container</a></li><li><a href="core.Event.html">Event</a></li><li><a href="core.EventDispatcher.html">EventDispatcher</a></li><li><a href="ElementState.html">ElementState</a></li><li><a href="ElementUtils.html">ElementUtils</a></li><li><a href="EventBroadCasters.html">EventBroadCasters</a></li><li><a href="EventChannel.html">EventChannel</a></li><li><a href="EventRouter.html">EventRouter</a></li><li><a href="EventUtils.html">EventUtils</a></li><li><a href="GenericEvent.html">GenericEvent</a></li><li><a href="InstanceId.html">InstanceId</a></li><li><a href="NavigationEvent.html">NavigationEvent</a></li><li><a href="Router.html">Router</a></li><li><a href="View.html">View</a></li><li><a href="ViewManager.html">ViewManager</a></li><li><a href="ViewNavigator.html">ViewNavigator</a></li><li><a href="ViewStack.html">ViewStack</a></li></ul>
+    <div id="versionNavigation"></div>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">Tutorial: Creating HelloWorldApp</h1>
+    
+
+    <section>
+
+<header>
+    
+</header>
+
+<article>
+    <h1></h1>
+<h2>In this tutorial you will learn</h2>
+<ul>
+<li>
+<p>How to create HelloWorld Application.</p>
+</li>
+<li>
+<p>How to create JSactions Scalable Application Architecture.</p>
+</li>
+<li>
+<p>How to create Custom Component</p>
+</li>
+<li>
+<p>How to create View (screen/page)</p>
+</li>
+<li>
+<p>How to create ViewNavigator</p>
+</li>
+<li>
+<p>How to create Path Route and Event Route</p>
+</li>
+<li>
+<p>How to create Navigation Event and Custom Component Event</p>
+</li>
+<li>
+<p>How to Bind Component property with Model.</p>
+</li>
+</ul>
+<h2>Download or clone App starter code</h2>
+<p>If you like start from scratch then skip download instruction.</p>
+<p>Download or clone App starter code from github url : <a href="https://github.com/jsactions/jsactionsappstarter">https://github.com/jsactions/jsactionsappstarter</a></p>
+<p>After downloading extract Zip Folder</p>
+<h2>Typical UI Application structure vs JSactions Appstarter Application structure</h2>
+<p>JSactions recommends scalable and flexible architecture for application development from begining. It helps to reduce re-architecture or restructure as application grows. Developers who comes from Adobe Flex or Flash background will feel more similarity in architecture.</p>
+<p>JSactions also support application as library module. JSactions itself is library module. If you like to develop your application as libary then refer core JSactions library packaging.</p>
+<p>Below architecture shows how a typical UI requirement can be translate in JSactions recommended architecture.</p>
+<ul>
+<li>
+<p>General UI application requirement statement :</br>
+<strong>Hello World Application on start should navigate to &quot;HelloWorld&quot; page.</strong></p>
+</li>
+<li>
+<p>UI application layout as per above requirement:</br>
+Generally, during UI application development, we think from &quot;page&quot; or &quot;screen&quot; perspective and then how to integrate them using event or routing as shown in below image.
+</br></br>
+<img src="images/typical-app-layout.png" alt="picture"></p>
+</li>
+<li>
+<p>Equivalent JSactions Application layout as per above requirement:</br>
+JSactions application follows below terminology to translate General UI application in JSactions equivalent.
+</br></br>
+<img src="images/jsactions-terminology.png" alt="picture"></p>
+<p></br></br>
+According to JSactions terminology, equivalent application layout shown as below.
+</br></br>
+<img src="images/jsactions-app-layout.png" alt="picture"></p>
+</li>
+</ul>
+<h2>Summary of Steps to create HelloWorld Application</h2>
+<p>Let's follows belows steps to create Helloworld Application </br></br></p>
+<ol>
+<li>
+<p>Create package.json</p>
+</li>
+<li>
+<p>Create Application Folder structure</p>
+</li>
+<li>
+<p>Create Application Class i.e &quot;Application.js&quot;</p>
+</li>
+<li>
+<p>Create AppViewManager Class as ViewManager i.e &quot;AppViewManager.js&quot;</p>
+</li>
+<li>
+<p>Create SimpleNavigator Class as ViewNavigator i.e &quot;SimpleNavigator.js&quot;</p>
+</li>
+<li>
+<p>Create MyButton.js Class as Component i.e &quot;MyButton.js&quot;</p>
+</li>
+<li>
+<p>Create HelloWorldModel Class as Model i.e &quot;HelloWorldModel.js&quot;</p>
+</li>
+<li>
+<p>Create HelloWorldView Class as View i.e &quot;HelloWorldView.js&quot;</p>
+</li>
+<li>
+<p>Create Application Launcher i.e &quot;index.js&quot; and &quot;index.html&quot;</p>
+</li>
+<li>
+<p>Wiring all above Classes with Event,Path,BindingUtils</p>
+</li>
+<li>
+<p>Compiling Application</p>
+</li>
+<li>
+<p>Running And Preview of Application</p>
+</li>
+</ol>
+<h3>1) Create package.json</h3>
+<p>Create package.json file as shown below.</p>
+<ol>
+<li>
+<p>Create application folder i.e &quot;HelloWorldApp&quot; and Navigate to it.</p>
+<pre class="prettyprint source lang-cmd"><code>   C:\md HelloWorldApp
+   C:\cd HelloWorldApp
+   C:\HelloWorldApp\
+</code></pre>
+</li>
+<li>
+<p>Run following command and answer questions
+Add &quot;name&quot;,&quot;version&quot;,&quot;description&quot;,&quot;dependencies&quot; and &quot;devDependencies&quot;, <strong>in dependencies&quot; add &quot;jsactions&quot;: &quot;^1.0.0&quot; package</strong>.</p>
+<pre class="prettyprint source lang-cmd"><code>   npm init
+</code></pre>
+</li>
+<li>
+<p>Above step will create &quot;package.json&quot; file as below</br>
+For detail contents of &quot;package.json&quot; open local file or browse <a href="https://github.com/jsactions/jsactionsappstarter/blob/master/package.json">https://github.com/jsactions/jsactionsappstarter/blob/master/package.json</a></p>
+</li>
+</ol>
+<pre class="prettyprint source lang-javascript"><code>          {
+            &quot;name&quot;: &quot;jsactionsappstarter&quot;,
+            &quot;version&quot;: &quot;1.0.0&quot;,
+            &quot;description&quot;: &quot;JSactions HelloWorld Application Starter &quot;,
+            &quot;keywords&quot;: [
+                  &quot;jsactions&quot;,
+                  &quot;es6&quot;,
+                  &quot;router&quot;,
+                  &quot;event&quot;,
+                  &quot;binding&quot;,
+                  &quot;view&quot;,
+                  &quot;mvc&quot;
+            ],
+            &quot;main&quot;: &quot;dist/jsactionsappstarter.js&quot;,
+            &quot;module&quot;: &quot;dist/jsactionsappstarter.module.js&quot;,
+            &quot;browser&quot;: &quot;dist/jsactionsappstarter.min.js&quot;,
+            &quot;npmName&quot;: &quot;jsactionsappstarter&quot;,
+            &quot;npmFileMap&quot;: [
+                  {
+                     &quot;basePath&quot;: &quot;dist&quot;,
+                     &quot;files&quot;: [
+                        &quot;**/*&quot;
+                     ]
+                  }
+            ],
+            &quot;directories&quot;: {
+                  &quot;doc&quot;: &quot;docs&quot;,
+                  &quot;lib&quot;: &quot;dist&quot;,
+                  &quot;test&quot;: &quot;tests&quot;
+            },
+            &quot;scripts&quot;: {
+                  &quot;preinstall&quot;: &quot;npx npm-force-resolutions&quot;,
+                  &quot;build&quot;: &quot;rollup -c&quot;,
+                  &quot;dev&quot;: &quot;rollup -c --watch&quot;,
+                  &quot;reload&quot;: &quot;livereload 'dist/'&quot;,
+                  &quot;watch&quot;: &quot;npm-run-all --parallel dev reload&quot;,
+                  &quot;test&quot;: &quot;echo \&quot;No test specified\&quot;&quot;
+            },
+            &quot;author&quot;: &quot;Gaurang Lade&quot;,
+            &quot;resolutions&quot;: {
+                  &quot;http-cache-semantics&quot;: &quot;^4.1.1&quot;,
+                  &quot;ansi-regex&quot;: &quot;^3.0.1&quot;,
+                  &quot;got&quot;: &quot;^11.8.5&quot;
+            },
+            &quot;devDependencies&quot;: {
+                  &quot;npm-run-all&quot;: &quot;^4.1.5&quot;,
+                  &quot;rollup&quot;: &quot;^1.32.1&quot;,
+                  &quot;rollup-plugin-alias&quot;: &quot;^2.2.0&quot;,
+                  &quot;rollup-plugin-copy&quot;: &quot;^3.4.0&quot;,
+                  &quot;rollup-plugin-esm-import-to-url&quot;: &quot;^2.1.0&quot;,
+                  &quot;rollup-plugin-livereload&quot;: &quot;^2.0.5&quot;,
+                  &quot;rollup-plugin-serve&quot;: &quot;^1.1.0&quot;,
+                  &quot;rollup-plugin-terser&quot;: &quot;^5.3.1&quot;,
+                  &quot;rollup-watch&quot;: &quot;^3.0.0&quot;,
+                  &quot;source-map&quot;: &quot;^0.6.1&quot;,
+                  &quot;source-map-support&quot;: &quot;^0.5.21&quot;
+            },
+            &quot;engine&quot;: &quot;node >= 8.9.4&quot;,
+            &quot;dependencies&quot;: {
+                  &quot;jsactions&quot;: &quot;^1.0.0&quot;
+            }
+
+         }
+
+
+</code></pre>
+<ol start="4">
+<li>
+<p>Now Run following command</p>
+<pre class="prettyprint source lang-cmd"><code>   npm install
+</code></pre>
+</li>
+<li>
+<p>Verify in node_modules &quot;jsactions&quot; module install.</p>
+</li>
+</ol>
+<h3>2) Create Application Folder structure</h3>
+<ol>
+<li>
+<p>Create Application directory structure as follows</p>
+<p><img src="images/app-folder-structure.png" alt="Application Structure"></p>
+</li>
+<li>
+<p>Create Blank Classes (.js files) in Application directory structure as follows</p>
+<p><img src="images/app-file-structure.png" alt="Application Structure"></p>
+</li>
+</ol>
+<h3>3) Create Application Class i.e &quot;Application.js&quot;</h3>
+<ul>
+<li>
+<p>Application Class require to create and launch &quot;ViewManager&quot;. It also trigger initial navigation event to launch default ViewNavigator and default View.</p>
+</li>
+<li>
+<p>Create Application.js file in &quot;src/app&quot; folder.</br></p>
+</li>
+<li>
+<p>Create new instance of AppViewManager which is subclass of ViewManager in intialize() method.</p>
+</li>
+<li>
+<p>In start method create &quot;NavigationEvent&quot; and dispatch it with EventBroadcaster as shown below code.</p>
+<pre class="prettyprint source lang-javascript"><code>import { EventUtils } from &quot;jsactions&quot;;
+import { EventBroadCaster } from &quot;jsactions&quot;;
+import { NavigationEvent } from &quot;jsactions&quot;;
+import AppViewManager from &quot;./AppViewManager&quot;;
+
+class Application {
+  constructor() {
+    this.initialize();
+  }
+
+  initialize() {
+    this.viewmanager = new AppViewManager();
+  }
+
+  start() {
+    let helloNavEvent = new NavigationEvent(
+      EventUtils.NAV_CHANGE_EVENT,
+      &quot;Hello_NavEvent&quot;,
+      &quot;Message :: Hello World !!!&quot;,
+      &quot;/hello&quot;
+    );
+
+    //Dispatch Hello Navigation Event
+    EventBroadCaster.navEventChannel.dispatchEvent(helloNavEvent);
+  }
+}
+export default Application;
+</code></pre>
+</li>
+</ul>
+<h3>4) Create AppViewManager Class as ViewManager i.e &quot;AppViewManager.js&quot;</h3>
+<ul>
+<li>
+<p>Create AppViewManager.js file in &quot;src/app&quot; folder.</br></p>
+</li>
+<li>
+<p>AppViewManager is subclass of ViewManager.</p>
+</li>
+<li>
+<p>Implement &quot;initialize&quot; method, &quot;createNavigator&quot; method and &quot;initRoutes&quot; method.</p>
+</li>
+<li>
+<p>&quot;initialize&quot; method override base ViewManager class method, and invoke &quot;initRoutes&quot; method to configure &quot;path&quot; routes as below to determine ViewNavigator specify in &quot;createNavigator&quot; method using &quot;navigatorId&quot;.</p>
+</li>
+<li>
+<p>Path route object : <strong>{ path: &quot;/hello&quot;, navigatorId: &quot;simpleNavigator&quot;,parentId: &quot;root&quot; }</strong></p>
+<p>Here in path route object, &quot;path:/hello&quot; is map to navigatorId: &quot;simpleNavigator&quot;. </br>parentId which is DOM / jsactions object is map to ViewNavigator DOM element as parentId.</p>
+</li>
+<li>
+<p>For more details goto &quot;ViewManager&quot; class page.</p>
+<pre class="prettyprint source lang-javascript"><code>import { ViewManager } from &quot;jsactions&quot;;
+import { Router } from &quot;jsactions&quot;;
+import { ViewNavigator } from &quot;jsactions&quot;;
+import SimpleNavigator from &quot;./navigators/SimpleNavigator&quot;;
+
+
+    class AppViewManager extends ViewManager {
+
+       initialize() {
+          super.initialize();
+          this.initRoutes();
+       }
+
+       createNavigator(_navigatorId, _parentId,_parentContainerId) {
+          let tmpNavigator = null;
+          switch (_navigatorId) {
+                case &quot;simpleNavigator&quot;:
+                   tmpNavigator = new SimpleNavigator(_navigatorId, _parentId,_parentContainerId);
+                break;
+
+                default:
+                   tmpNavigator = new ViewNavigator(_navigatorId, _parentId,_parentContainerId);
+
+          }
+          return tmpNavigator;
+       }
+
+       initRoutes() {
+          let tmpRoutes = [
+                { path: &quot;/hello&quot;, navigatorId: &quot;simpleNavigator&quot;,parentId: &quot;root&quot; }
+          ];
+          this.routes = new Router(tmpRoutes);
+       }
+    }
+
+    export default AppViewManager;
+
+</code></pre>
+</li>
+</ul>
+<h3>5) Create SimpleNavigator Class as ViewNavigator i.e &quot;SimpleNavigator.js&quot;</h3>
+<ul>
+<li>
+<p>Create SimpleNavigator.js file in &quot;src/app/navigators&quot; folder.</br></p>
+</li>
+<li>
+<p>SimpleNavigator is subclass of ViewNavigator.</p>
+</li>
+<li>
+<p>Implement &quot;initNavigator&quot; method, &quot;createView&quot; method, and &quot;initEventRoutes&quot; method.</p>
+</li>
+<li>
+<p>If you have custom navigation DOM template then implement it in &quot;renderNavigatorContent&quot; method.</p>
+</li>
+<li>
+<p>&quot;initNavigator&quot; method override base ViewNavigator class method, and invoke &quot;initEventRoutes&quot; method to configure &quot;event&quot; routes as below to determine Views specify in &quot;createView&quot; method using &quot;viewId&quot;.</p>
+</li>
+<li>
+<p>Event route object : <strong>{ navEvent: &quot;Hello_NavEvent&quot;, viewstackId: &quot;HelloWorldStack&quot;, viewId: &quot;helloview&quot;, path: &quot;/hello&quot; }</strong></br></p>
+</li>
+</ul>
+<p>Here in event route object,&quot;navEvent: Hello_NavEvent&quot; is map to viewId: &quot;helloview&quot; and viewstackId: &quot;HelloWorldStack&quot;. </br> Also &quot;path:/hello&quot; is map to navigatorId: &quot;simpleNavigator&quot;. </br>parentId which is DOM / jsactions object is map to ViewNavigator DOM element as parentId.</p>
+<ul>
+<li>
+<p>For more details goto &quot;ViewNavigator&quot; class page.</p>
+<pre class="prettyprint source lang-javascript"><code>
+      import { ViewNavigator } from 'jsactions';
+      import { EventRouter } from 'jsactions';
+      import HelloWorldView from '../views/HelloWorldView';
+
+      class SimpleNavigator extends ViewNavigator {
+         constructor(_id, _parentId,_parentContainerId) {
+            super(_id, _parentId,_parentContainerId);
+         }
+
+         initNavigator() {
+            this.history = false;
+            this.initEventRoutes();
+         }
+
+         createView(_viewId, _route, _navevent, _navparams, _viewStackId) {
+            let tmpView = null;
+            switch (_viewId) {
+                  case &quot;helloview&quot;:
+                     tmpView = new HelloWorldView(_viewId, _route, _navevent, _navparams, _viewStackId);
+                     break;
+                  default:
+                     tmpView = new View(_viewId, _route, _navevent, _navparams, _viewStackId);
+                     break;
+
+            }
+            return tmpView;
+         }
+
+         initEventRoutes() {
+            let helloEvntRoutes = [
+                  { navEvent: &quot;Hello_NavEvent&quot;, viewstackId: &quot;HelloWorldStack&quot;, viewId: &quot;helloview&quot;, path: &quot;/hello&quot; }
+            ];
+            this.eventRouter = new EventRouter(helloEvntRoutes);
+         }
+      }
+      export default SimpleNavigator;
+
+</code></pre>
+</li>
+</ul>
+<h3>6) Create MyButton.js Class as Component i.e &quot;MyButton.js&quot;</h3>
+<ul>
+<li>
+<p>Create MyButton.js file in &quot;src/app/components&quot; folder.</p>
+</li>
+<li>
+<p>The Component class is the base class for all visual components. MyButton is subclass of Component</p>
+</li>
+<li>
+<p>For initializing MyButton Component, implement &quot;init&quot; method, &quot;initComponent&quot; method.</p>
+</li>
+<li>
+<p>For implementing DOM template use &quot;createDOMContent&quot; method.</p>
+</li>
+<li>
+<p>Base Component Class ensure to invoke eventHandling after Component render HTML DOM template. So implement eventHandling in &quot;addEventHandler&quot; method and binding property using &quot;BindingUtils&quot; in &quot;bind&quot; method.</p>
+</li>
+<li>
+<p>Following component properties are map to correspoding methods:</p>
+<ol>
+<li>For &quot;enabled&quot; implement &quot;setComponentEnabled&quot;</li>
+<li>For &quot;readOnly&quot; implement &quot;setComponentReadOnly&quot;</li>
+<li>For &quot;required&quot; implement &quot;setComponentRequired&quot;</li>
+<li>For &quot;visible&quot; base Component class have already implemented required functionality.</li>
+</ol>
+</li>
+<li>
+<p>For more details goto &quot;Component&quot; class page.</p>
+<pre class="prettyprint source lang-javascript"><code>
+ import {Component} from 'jsactions';
+ import {Event} from 'jsactions';
+ import {EventUtils} from 'jsactions';
+
+ class MyButton extends Component {
+
+
+    /**
+    *Creates an instance of MyButton.
+    * @param {*} [_id=null] - &quot;jsact-component&quot; wrapper id
+    * @param {*} [_parentViewId=null] - Parent View ID
+    * @param {*} [_parentContainerId=null] - Parent Container ID
+    * @param {boolean} [_createDOMElement=true] - Set &quot;True&quot; if HTML Template of Component generate internally.  Set - False when Template designed externally.
+    * @memberof MyButton
+    */
+    constructor(_id = null, _parentViewId = null,_parentContainerId=null, _createDOMElement = true) {
+       super(_id, _parentViewId,_parentContainerId, _createDOMElement);
+    }
+
+
+
+    /**
+    *
+    * Lifecycle Method
+    * @param {string} [_label=&quot;Button&quot;]
+    * @param {string} [_formId=&quot;defaultform&quot;]
+    * @memberof MyButton
+    */
+    init(_label=&quot;Button&quot;,_formId = &quot;defaultform&quot;) {
+       this.label = _label;
+       this.formId = _formId;
+       // call super class init method
+       super.init();
+    }
+
+
+    /**
+    *
+    * Lifecycle Method
+    * @memberof MyButton
+    */
+    initComponent(){
+       super.initComponent();
+    }
+
+
+    /**
+    * Create HTML Elements for Button
+    * LifeCycle Method
+    * @memberof MyButton
+    */
+    createDOMContent() {
+       super.createDOMContent();
+       let tmpCompContentEl = this.createComponentHTML();
+       // Use following method to add Template to Component Wrapper
+       this.addToComponentElement(tmpCompContentEl);
+    }
+
+
+    /**
+    *
+    * Call by Attached Method
+    * Implement all Event Handlers here
+    * LifeCycle Method
+    * @memberof MyButton
+    */
+    addEventHandler() {
+       super.addEventHandler();
+       if(this.componentElement != null){
+             let buttonEl = this.componentElement.querySelector(&quot;input[type='button']&quot;);
+             buttonEl.addEventListener(&quot;click&quot;, (e) => { this.clickHandler(e); });
+       }
+    }
+
+    clickHandler(event){
+       event.preventDefault();
+       let srcObjfrmEvt = event.target;
+       console.log(srcObjfrmEvt.value + &quot; :: HTML Button Click Event Received ::&quot;);
+       console.log(&quot;MyButton Custom Click Event Dispatched&quot;)
+       this.dispatchEvent(EventUtils.CLICK, this);
+    }
+
+
+    /**
+    *
+    * Implement Component Enabled here
+    * this method call by &quot;enabled&quot; setter
+    * @memberof MyButton
+    */
+    setComponentEnabled(){
+       console.log(this.id+&quot; Enabled = &quot;+this.enabled);
+       super.setComponentEnabled();
+       let buttonEl = this.componentElement.querySelector(&quot;input[type='button']&quot;);
+       if(this.enabled == false){
+             buttonEl.setAttribute(&quot;disabled&quot;,&quot;disabled&quot;);
+             buttonEl.classList.add(&quot;disablebutt&quot;);
+       }else{
+             if(buttonEl.hasAttribute(&quot;disabled&quot;)){
+                buttonEl.removeAttribute(&quot;disabled&quot;);
+                buttonEl.classList.remove(&quot;disablebutt&quot;);
+             }
+       }
+    }
+
+    /**
+    *
+    * Implement Component ReadOnly here
+    * this method call by &quot;readonly&quot; setter
+    * @memberof MyButton
+    */
+    setComponentReadOnly(){
+       super.setComponentReadOnly();
+    }
+
+    /**
+    *
+    * call by createDOMContent
+    * @memberof MyButton
+    */
+    createComponentHTML() {
+       let btnHtml = `&lt;input type=&quot;button&quot; class=&quot;mybutton&quot; value=&quot;${this.label}&quot;>`;
+       return btnHtml;
+    }
+
+    }
+
+    export default MyButton;
+
+</code></pre>
+</li>
+</ul>
+<h3>7) Create HelloWorldModel Class as Model i.e &quot;HelloWorldModel.js&quot;</h3>
+<ul>
+<li>
+<p>Models contain the data or state of an Views/Component or Application.</p>
+</li>
+<li>
+<p>Models hae properties which can then be retrieved and stored using the get and set methods.</p>
+</li>
+<li>
+<p>Using Eventful model which trigger event when any of its property get change. It is useful to free Views and Component from the necessity of being aware of each other.</p>
+</li>
+<li>
+<p>Binding Model property using &quot;BindingUtils&quot; helps make easy managing of Component or Model property change with less code.</p>
+</li>
+<li>
+<p>Below HelloWorldModel class is extends from Eventdispatcher class to generate &quot;Custom Events&quot; to make loosely coupled View, Component, Model with each other.</p>
+<pre class="prettyprint source lang-javascript"><code>
+   import { EventDispatcher } from 'jsactions';
+
+   class HelloWorldModel extends EventDispatcher {
+      constructor() {
+         super();
+         this.value = false;
+         this.clickCount = 1;
+      }
+
+      incrementClick(){
+         this.clickCount++;
+         this.dispatchEvent(&quot;incrementEvent&quot;, this);
+      }
+
+      decrementClick(){
+         this.clickCount--;
+         this.dispatchEvent(&quot;decrementEvent&quot;, this);
+      }
+
+      getClickCount(){
+         return this.clickCount;
+      }
+
+      setValue() {
+         this.value = !(this.value);
+         console.log(&quot;HelloWorldModel : value = &quot;+this.value);
+         this.dispatchEvent(&quot;change&quot;, this);
+      }
+
+      getValue() {
+         return this.value;
+      }
+   }
+
+   export default HelloWorldModel;
+
+</code></pre>
+</li>
+</ul>
+<h3>8) Create HelloWorldView Class as View i.e &quot;HelloWorldView.js&quot;</h3>
+<ul>
+<li>
+<p>View consider as single UI screen.</p>
+</li>
+<li>
+<p>View manages View Template or DOM Content such behaviour, event listners etc.</p>
+</li>
+<li>
+<p>View contains Contents consist of &quot;Containers&quot; and &quot;Components&quot; and Model. View created and manage by ViewNavigator.</p>
+</li>
+<li>
+<p>Create HelloWorldView.js file in &quot;src/app/views&quot; folder.</p>
+</li>
+<li>
+<p>The View class is the base class for all pages/screen. HelloWorldView is subclass of View class.</p>
+</li>
+<li>
+<p>For initializing HelloWorldView view, implement &quot;initView&quot; method.</p>
+</li>
+<li>
+<p>For implementing DOM template and creating Components use &quot;createViewContent&quot; method.</p>
+</li>
+<li>
+<p>Base View Class ensure to invoke eventHandling after View render HTML DOM template and Components. So implement eventHandling in &quot;addViewHandler&quot; method and binding property using &quot;BindingUtils&quot; in &quot;bindView&quot; method.</p>
+</li>
+<li>
+<p>For more details goto &quot;View&quot; class page.</p>
+<pre class="prettyprint source lang-javascript"><code>   
+   import { View } from 'jsactions';
+    import { ElementUtils } from 'jsactions';
+    import { BindingUtils } from 'jsactions';
+    import MyButton from '../components/MyButton';
+    import HelloWorldModel from '../models/HelloWorldModel';
+
+
+
+    class HelloWorldView extends View {
+
+       constructor(_id, _route, _navevent, _navparams, _parentViewStackId) {
+          super(_id, _route, _navevent, _navparams, _parentViewStackId);
+       }
+
+       initView() {
+          super.initView();
+
+          this.cmpButton1 = null;
+          this.cmpButton2 = null;
+          this.cmpButton3 = null;
+          this.decreButton = null;
+          this.myButtonModel = new HelloWorldModel();
+       }
+
+       //Overrides by SubClass
+       // call by attachView
+       bindView() {
+          super.bindView();
+          this.bindButtons();
+       }
+
+       /*
+       Add HTML Element Event Handlers 
+       call by attachView
+       */
+       addViewHandler() {
+          super.addViewHandler();
+          this.cmpButton2.addEventListener(&quot;click&quot;, (e) => 
+          { 
+                //this.bindButtons() ;
+                console.log(&quot;clicked recevied&quot;+e.target.enabled)
+             });
+       }
+
+
+
+       bindButtons() {
+          //let cmpButt2 = this.cmpButton2;
+          //let cmpButt3 = this.cmpButton3;
+          let labelEl = document.querySelector(&quot;.demobuttState&quot;);
+          let labelClickEl = document.querySelector(&quot;.democlick&quot;);
+
+          BindingUtils.addBinding(this.cmpButton1, &quot;&quot;, &quot;click&quot;, this.myButtonModel, &quot;incrementClick&quot;, false);
+
+          BindingUtils.addBinding(this.decreButton, &quot;&quot;, &quot;click&quot;, this.myButtonModel, &quot;decrementClick&quot;, false);
+
+          BindingUtils.addBinding(this.myButtonModel, &quot;getClickCount&quot;, &quot;incrementEvent&quot;, labelClickEl, &quot;innerHTML&quot;, false);
+
+          BindingUtils.addBinding(this.myButtonModel, &quot;getClickCount&quot;, &quot;decrementEvent&quot;, labelClickEl, &quot;innerHTML&quot;, false);
+
+          
+
+          BindingUtils.addBinding(this.cmpButton2, &quot;enabled&quot;, &quot;click&quot;, this.myButtonModel, &quot;setValue&quot;, false);
+          BindingUtils.addBinding(this.myButtonModel, &quot;getValue&quot;, &quot;change&quot;, this.cmpButton3, &quot;enabled&quot;, false);
+          BindingUtils.addBinding(this.myButtonModel, &quot;getValue&quot;, &quot;change&quot;, labelEl, &quot;innerHTML&quot;, false);
+       }
+
+       // call by attachView
+       createViewContent() {
+          let tmpViewContentEl = this.createViewHTML();
+          this.addToViewElement(tmpViewContentEl);
+
+          this.cmpButton1 = new MyButton(&quot;cmpBtn&quot;,this.id,&quot;helloContainer&quot;,true);
+          this.cmpButton1.init(&quot;My Component&quot;);
+          this.cmpButton1.attach();
+          this.cmpButton1.enabled = true;
+
+          this.decreButton = new MyButton(&quot;decreBtn&quot;,this.id,&quot;helloContainer&quot;,true);
+          this.decreButton.init(&quot;Decrement Button&quot;);
+          this.decreButton.attach();
+          this.decreButton.enabled = true;
+
+
+          
+          // Add Break Element
+          let buttonContEl = ElementUtils.container(&quot;helloContainer&quot;,this.id);
+          //this.addBreakElement(buttonContEl);
+
+
+          this.cmpButton2 = new MyButton(&quot;cmpBtn2&quot;,this.id,&quot;bindDemoContainer&quot;,true);
+          this.cmpButton2.init(&quot;Toggle Button&quot;);
+          this.cmpButton2.attach();
+          this.cmpButton2.enabled = true;
+
+          // Add Break Element
+          let bindContEl = ElementUtils.container(&quot;bindDemoContainer&quot;,this.id);
+          this.addBreakElement(bindContEl);
+
+
+          this.cmpButton3 = new MyButton(&quot;cmpBtn3&quot;,this.id,&quot;bindDemoContainer&quot;,true);
+          this.cmpButton3.init(&quot;Demo Button&quot;);
+          this.cmpButton3.attach();
+          this.cmpButton3.enabled = false;
+
+          this.addBreakElement(bindContEl);
+          this.addBreakElement(bindContEl);
+       }
+
+       createViewHTML() {
+          let thisRef = this;
+          let helloTmplHtml = `
+             &lt;div class=&quot;viewbg&quot;>
+                &lt;div>
+                &lt;p>&lt;h2>JSactionsjs AppStarter &lt;/span>&lt;/h2>&lt;/p>
+                   &lt;p>&lt;h3>Demo 1 : View Id is - &lt;span class=&quot;redtext&quot;>${this.id} &lt;/span>&lt;/h3>&lt;/p>
+                   &lt;p>&lt;h4>Static View Contents Hello World !!!&lt;/h4>&lt;/p>
+                &lt;/div>
+                &lt;hr>
+                
+                &lt;div> 
+                &lt;p>&lt;h3>Demo 2 : Verifying Passing View Parameter during navigation event&lt;/h3>&lt;/p>
+                &lt;p> View Parameter Received ::: &lt;span class=&quot;redtext&quot;>${thisRef.navParams}&lt;/span> &lt;/p>
+                &lt;/div>
+                &lt;hr>
+                
+                   &lt;div>
+                      &lt;p> &lt;h3>Demo 3 : Verifying Binding Custom Component Click using Model&lt;/h3>&lt;/p>
+                      &lt;p> Click on below &quot;My Component&quot; Button to count number of clicks&lt;/p>
+                      &lt;p> &lt;h4> &quot;My Component&quot; Button  Clicked &lt;label class=&quot;democlick redtext&quot; >0&lt;/label> times &lt;/h4>&lt;/p>
+                   &lt;/div>
+                &lt;div class=&quot;jsact-container helloContainer&quot;>&lt;/div> 
+                &lt;hr>
+                &lt;div>
+                      &lt;p> &lt;h3>Demo 4 : Verifying Binding Component Property using Model&lt;/h3>&lt;/p>
+                      &lt;p> Click on below &quot;Toggle Button&quot; to Enable or Disable the &quot;Demo Button&quot; &lt;/p>
+                      &lt;p> &lt;h4> &quot;Demo Button&quot; State : &lt;label class=&quot;demobuttState redtext&quot; >false&lt;/label> in Model &lt;/h4>&lt;/p>
+                   &lt;/div>
+                &lt;div class=&quot;jsact-container bindDemoContainer&quot;>&lt;/div> 
+          &lt;/div>
+          `;
+          return helloTmplHtml;
+       }
+
+       addBreakElement(_parentEl){
+          let brakEl = `&lt;/br>&lt;/br>`
+          _parentEl.insertAdjacentHTML('beforeend', brakEl);
+       }
+
+       removeViewHandler() {
+          super.removeViewHandler();
+       }
+    }
+
+    export default HelloWorldView;
+
+</code></pre>
+</li>
+</ul>
+<h3>9) Create Application Launcher i.e &quot;index.js&quot; , &quot;index.html&quot; and &quot;jsactionsappstarter.js&quot;</h3>
+<ul>
+<li>
+<p>For launching HelloWorld application defined in &quot;Application Class&quot;, initial launcher script is required.</p>
+</li>
+<li>
+<p>Create &quot;index.js&quot; file to create new instance of &quot;Application&quot; Class and then call &quot;start()&quot; method of it which will create &quot;ViewManager&quot; instance as shown in Step 3.</p>
+<pre class="prettyprint source lang-javascript"><code>   import {Application} from './module/jsactionsappstarter.js';
+
+   const startApp = () => {
+      let myApp = new Application();
+      myApp.start();
+   }
+
+   startApp();
+</code></pre>
+</li>
+<li>
+<p>Create &quot;jsactionsappstarter.js&quot; file to define exporting classes as to launch as modules dynamically.</p>
+<pre class="prettyprint source lang-javascript"><code>   export { default as Application } from './app/Application';
+   export { default as AppViewManager } from './app/AppViewManager';
+   export { default as HelloWorldView } from './app/views/HelloWorldView';
+   export { default as SimpleNavigator } from './app/navigators/SimpleNavigator';
+   export { default as MyButton } from './app/components/MyButton';
+   export { default as HelloWorldModel } from './app/models/HelloWorldModel';
+</code></pre>
+</li>
+<li>
+<p>Now finally in &quot;src&quot; folder create &quot;index.html&quot; file to include core &quot;jsactions.min.js&quot; library and Compiled application in file &quot;jsactionsappstarter.js&quot;.</p>
+</li>
+<li>
+<p>Add some style for beautification of Component and View. See &quot;index.html&quot; file.</p>
+<p><img src="images/index-html.png" alt="picture"></p>
+</li>
+</ul>
+<h3>10) Wiring all Classes with Event,Path,BindingUtils</h3>
+<ul>
+<li>
+<p>Make sure to wire all classes listed below with Path route, Event Route, NavigationEvent and Binding.</p>
+</li>
+<li>
+<p>Application.js</p>
+<pre class="prettyprint source lang-javascript"><code>    // new instance of AppViewManager which is subclass of ViewManager
+    this.viewmanager = new AppViewManager();
+
+    // create NavigationEvent with &quot;Hello_Event&quot; as EventName, Event Type as EventUtils.NAV_CHANGE_EVENT, Naviation params as &quot;My First Hello World Message as Navigation Param&quot;, Navigation path &quot;/hello&quot;.
+
+    let helloNavEvent = new NavigationEvent(
+       EventUtils.NAV_CHANGE_EVENT,
+       &quot;Hello_NavEvent&quot;,
+       &quot;Message :: My First Hello World Message as Navigation Param&quot;,
+       &quot;/hello&quot;
+    );
+
+    //Dispatch Hello Navigation Event
+    EventBroadCaster.navEventChannel.dispatchEvent(helloNavEvent);
+</code></pre>
+</li>
+<li>
+<p>AppViewManager.js</p>
+<pre class="prettyprint source lang-javascript"><code>
+   // Create path routes object.
+   let tmpRoutes = [
+            { path: &quot;/hello&quot;, navigatorId: &quot;simpleNavigator&quot;,parentId: &quot;root&quot; }
+      ];
+      this.routes = new Router(tmpRoutes);
+
+   // create &quot;SimpleNavigator&quot; instance from navigatorId &quot;simpleNavigator&quot; configure above.
+   case &quot;simpleNavigator&quot;:
+               tmpNavigator = new SimpleNavigator(_navigatorId, _parentId,_parentContainerId);
+   break;
+
+</code></pre>
+</li>
+<li>
+<p>SimpleNavigator.js</p>
+<pre class="prettyprint source lang-javascript"><code>
+   // make Navigator false
+   this.history = false;
+
+   // Create event routes object.
+   let helloEvntRoutes = [
+            { navEvent: &quot;Hello_NavEvent&quot;, viewstackId: &quot;HelloWorldStack&quot;, viewId: &quot;helloview&quot;, path: &quot;/hello&quot; }
+      ];
+   this.eventRouter = new EventRouter(helloEvntRoutes);
+
+   // create &quot;HelloWorldView&quot; instance from viewId &quot;helloview&quot; configure above.
+   case &quot;helloview&quot;:
+      tmpView = new HelloWorldView(_viewId, _route, _navevent, _navparams, _viewStackId);
+   break;
+
+</code></pre>
+</li>
+<li>
+<p>MyButton.js</p>
+<pre class="prettyprint source lang-javascript"><code>
+   // handle click event of DOM button element and dispatch &quot;custom&quot; click event.
+   clickHandler(event){
+      event.preventDefault();
+      let srcObjfrmEvt = event.target;
+      console.log(srcObjfrmEvt.value + &quot; :: HTML Button Click Event Received ::&quot;);
+      console.log(&quot;MyButton Custom Click Event Dispatched&quot;);
+      this.dispatchEvent(EventUtils.CLICK, this);
+   }
+
+</code></pre>
+</li>
+<li>
+<p>HelloWorldModel.js</p>
+<pre class="prettyprint source lang-javascript"><code>
+   // increase click count of &quot;this.clickCount&quot; property and dispatch custom event &quot;incrementEvent&quot;.
+   incrementClick(){
+      this.clickCount++;
+      this.dispatchEvent(&quot;incrementEvent&quot;, this);
+   }
+
+   getClickCount(){
+      return this.clickCount;
+   }
+
+   // set value of &quot;this.value&quot; property and dispatch custom event &quot;change&quot;.
+   setValue() {
+      this.value = !(this.value);
+      console.log(&quot;HelloWorldModel : value = &quot;+this.value);
+      this.dispatchEvent(&quot;change&quot;, this);
+   }
+
+   getValue() {
+      return this.value;
+   }
+
+</code></pre>
+</li>
+<li>
+<p>HelloWorldView.js</p>
+<pre class="prettyprint source lang-javascript"><code>
+   // initialize view components as property and HelloWorldModel also.
+   this.cmpButton1 = null;
+   this.cmpButton2 = null;
+   this.cmpButton3 = null;
+   this.myButtonModel = new HelloWorldModel();
+
+   // call bindButtons to bind Button propety with model and create chain binding.
+   bindButtons() {
+      let labelEl = document.querySelector(&quot;.demobuttState&quot;);
+      let labelClickEl = document.querySelector(&quot;.democlick&quot;);
+
+      BindingUtils.addBinding(this.cmpButton1, &quot;&quot;, &quot;click&quot;, this.myButtonModel, &quot;incrementClick&quot;, false);
+
+      BindingUtils.addBinding(this.myButtonModel, &quot;getClickCount&quot;, &quot;incrementEvent&quot;, labelClickEl, &quot;innerHTML&quot;, false);
+
+      BindingUtils.addBinding(this.cmpButton2, &quot;enabled&quot;, &quot;click&quot;, this.myButtonModel, &quot;setValue&quot;, false);
+      BindingUtils.addBinding(this.myButtonModel, &quot;getValue&quot;, &quot;change&quot;, this.cmpButton3, &quot;enabled&quot;, false);
+      BindingUtils.addBinding(this.myButtonModel, &quot;getValue&quot;, &quot;change&quot;, labelEl, &quot;innerHTML&quot;, false);
+   }
+</code></pre>
+</li>
+</ul>
+<h3>11) Compiling Running HelloWorldApp</h3>
+<ul>
+<li>Run following command to compile HelloWorldApp.</li>
+</ul>
+<pre class="prettyprint source lang-javascript"><code>     c:\jsactionsappstarter\npm run build
+</code></pre>
+<h3>12) Running And Preview of Application</h3>
+<ul>
+<li>
+<p>Running Application </br>
+After compilation successfully following log  will appear on command line.</p>
+<pre class="prettyprint source lang-cmd"><code>   ./src/index.js → dist/jsactionsappstarter.js
+   http://localhost:10001 -> C:\jsactionsappstarter
+
+</code></pre>
+</li>
+<li>
+<p>Application Preview </br>
+Now in browser type &quot;<a href="http:%5C/%5C/localhost:10002%22">http://localhost:10002&quot;</a> to open Application (see preview below)</p>
+<p><img src="images/jsactionsappstarter.gif" alt="picture"></p>
+</li>
+</ul>
+</article>
+
+</section>
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Learn more about ActionHero @ <a href="https://www.actionherojs.com">www.actionherojs.com</a>
+    <br />
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.11</a> using the <a href="https://github.com/actionhero/docdash-actionhero-theme">docdash-actionhero-theme</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+<script src="/scripts/VERSIONS.js"></script>
+<script src="/scripts/versionNavigation.js"></script>
+</body>
+</html>

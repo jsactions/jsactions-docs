@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Tutorial: Introduction - ActionHero Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <script src="scripts/google-analytics.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <div id="nav-logo-container">
+        <a href="index.html">
+            <img id="nav-logo" src="images/jsactions-logo.png" />
+        </a>
+    </div>
+    <h3>Tutorials</h3><ul><li><a href="tutorial-introduction.html">Introduction</a></li><li><a href="tutorial-quickstart.html">QuickStart</a></li><li><a href="tutorial-understandhelloworld.html">Creating HelloWorldApp</a></li><li><a href="tutorial-versioninfo.html">Version Info</a></li></ul><h3>Classes</h3><ul><li><a href="BindingUtil.html">BindingUtil</a></li><li><a href="ClassError.html">ClassError</a></li><li><a href="Component.html">Component</a></li><li><a href="Container.html">Container</a></li><li><a href="core.Event.html">Event</a></li><li><a href="core.EventDispatcher.html">EventDispatcher</a></li><li><a href="ElementState.html">ElementState</a></li><li><a href="ElementUtils.html">ElementUtils</a></li><li><a href="EventBroadCasters.html">EventBroadCasters</a></li><li><a href="EventChannel.html">EventChannel</a></li><li><a href="EventRouter.html">EventRouter</a></li><li><a href="EventUtils.html">EventUtils</a></li><li><a href="GenericEvent.html">GenericEvent</a></li><li><a href="InstanceId.html">InstanceId</a></li><li><a href="NavigationEvent.html">NavigationEvent</a></li><li><a href="Router.html">Router</a></li><li><a href="View.html">View</a></li><li><a href="ViewManager.html">ViewManager</a></li><li><a href="ViewNavigator.html">ViewNavigator</a></li><li><a href="ViewStack.html">ViewStack</a></li></ul>
+    <div id="versionNavigation"></div>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">Tutorial: Introduction</h1>
+    
+
+    <section>
+
+<header>
+    
+</header>
+
+<article>
+    <h1></h1>
+<p>JSactions is modern UI framework developed using JavaScript next version ECMAScript 6+ for developing enterprise web application and hybrid mobile application rapidly with less effort.</br></br>
+It is open source with MIT license and Extremely Lightweight (Minified Size ~ 30KB, Minified + gzip Size ~ 8KB). </br></br>
+It is JQuery free and uses Native DOM queries to manipulate DOM elements.</br></br>
+It provide structured mechanism for Navigation, View management using life-cycle methods and loosely connected with event pub sub.</br></br></p>
+<h2>Features</h2>
+<ul>
+<li>
+<p>MV* Framework</p>
+</li>
+<li>
+<p>Developed in Pure Vanilla Javascript ECMAScript 6+</p>
+</li>
+<li>
+<p>In built Display Management for managing Views, Navigation</p>
+</li>
+<li>
+<p>Easy Route and Navigation management</p>
+</li>
+<li>
+<p>In built Event Management to make loosely coupled View, Component, Model with each other.</p>
+</li>
+<li>
+<p>Quick and Easy Integration with any CSS Framework (Bootstrap, Semantic UI)</p>
+</li>
+<li>
+<p>Easily extendible</p>
+</li>
+<li>
+<p>Separate HTML design and behavior to give comfort to Designer and Developer.</p>
+</li>
+<li>
+<p>In Build Provision for Memory Management using lifecycle methods.</p>
+</li>
+<li>
+<p>MIT License</p>
+</li>
+</ul>
+<h2>Terminology</h2>
+<ul>
+<li>
+<p>JSactions defined Core Object terms w.r.t General web development.</p>
+</li>
+<li>
+<p>JSactions application follows below terminology to translate General UI application in JSactions equivalent.</p>
+</li>
+<li>
+<p>Understanding JSactions Core Object terms as shown below will help to understading framework functionality easily.</br>
+below
+<img src="images/jsactions-terminology.png" alt="picture"></p>
+</li>
+<li>
+<p>Taking Browser as example Application to better understand.</p>
+<p>Here Web Browser act as <strong>&quot;ViewManager&quot;</strong> , as an <strong>&quot;Application&quot;</strong> and as a <strong>&quot;ViewNavigator&quot;</strong>. Each Tab is Consider as <strong>&quot;ViewStack&quot;</strong> which have its own page history. Each Tab shows One HTML Page is consider as <strong>&quot;View&quot;</strong> and Page Section such as Login Panel is consider as <strong>&quot;Container&quot;</strong>. Page HTML Elements such as input field and button in login panel consider as <strong>&quot;Component&quot;</strong>.</br></p>
+<p><img src="images/term-broswer-general.png" alt="picture"><br>
+<img src="images/term-broswer-jsactions.png" alt="picture"></p>
+</li>
+</ul>
+<h2>JSactions Core Objects</h2>
+<ul>
+<li>JSactions framework consist of core objects as below.</li>
+</ul>
+<h3>ViewManager</h3>
+<ul>
+<li>
+<p>ViewManager helps Application to do ViewManagement efficiently by using  ViewNavigtor and Views with path and event based routing.</p>
+</li>
+<li>
+<p>It Subscribe to EventBroadcaster's Navigation channel to receive navigation change events.</p>
+</li>
+<li>
+<p>ViewManager find ViewNavigator based on Path Routes data and it match route info received in navigation change event.</p>
+</li>
+<li>
+<p>ViewManager core functions :</p>
+<ol>
+<li>Transition of View by finding Owner ViewNavigator to move forward or in back.</li>
+<li>Creating , Updating and Destroying View Navigators.</li>
+<li>Finding Nested ViewNavigator and underlying views, viewstacks .</li>
+<li>Routing Navigation Events to Navigators by matching &quot;Path&quot; associate with Navigator.</li>
+<li>Activating, De-activating View Navigators.</li>
+</ol>
+</li>
+<li>
+<p>For more details goto &quot;ViewManager&quot; class page.</p>
+</li>
+</ul>
+<h3>ViewNavigator</h3>
+<ul>
+<li>
+<p>UI navigation  manages by ViewNavigator.</p>
+</li>
+<li>
+<p>&quot;ViewNavigator&quot; is base class which have simple view navigation functionality.</p>
+</li>
+<li>
+<p>ViewNavigator core functions :</p>
+<ol>
+<li>Manages set of view using stack-based history mechanism which also called as &quot;ViewStack&quot;.</li>
+<li>Manages LifeCycle of View.</li>
+<li>Memory Management : In UI development speed and performance is very important. In order to achieve that, ViewNavigator ensure that one View active at a given time by default. However it keep previous ViewObject (NOT DOM Element) in  Viewstack when <strong>history=true&quot;</strong>. Thus View DOM Element gets hide in order to save browser memory consumption.</li>
+<li>ViewNavigator also call View destroy method when user hits backbutton.</li>
+</ol>
+</li>
+<li>
+<p>For more details goto &quot;ViewNavigator&quot; class page.</p>
+</li>
+</ul>
+<h3>ViewStack</h3>
+<ul>
+<li>
+<p>ViewNavigator manages set of view using stack-based history mechanism which also called as <strong>ViewStack</strong>. Thus each Viewstack represent its own view history stack. So JSactions supports multiple history stack too.</p>
+</li>
+<li>
+<p>A ViewStack contains collection of Views that are stacked on top of each other, with only View on top of stack is visible, or active, at a time. The ViewStack  manage by only Viewmanager.</p>
+</li>
+<li>
+<p>Viewstack can be extended to customize its DOM template along with ViewNavigator.</p>
+</li>
+<li>
+<p>For more details goto &quot;ViewStack&quot; class page.</p>
+</li>
+</ul>
+<h3>View</h3>
+<ul>
+<li>
+<p>View consider as single UI screen.</p>
+</li>
+<li>
+<p>View contains Contents consist of &quot;Containers&quot; and &quot;Components&quot; and Model.View can be use with Core HTML Components also.</p>
+</li>
+<li>
+<p>View manages View Template or DOM Content such behaviour, event listners etc.</p>
+</li>
+<li>
+<p>View created and manage by ViewNavigator.</p>
+</li>
+<li>
+<p>Only View have access to View Contents i.e Components , Containers and DOM Elements. If you want to change view content then you have to use View API(methods). Or communicate with View through unique event sent on Application channel.</p>
+</li>
+<li>
+<p>Communication with View or Between Views :</br>
+All Views are loosely connected and isolated. They to interact with other views or other parts of Application through events sent on Application channel. View(s) synchronized with Models and Business Services with Events only. This way View can make one-one or one-many eventbased communication</p>
+</li>
+<li>
+<p>Passing data Between Views :</br>
+Data can be pass between Views during navigation using &quot;navparams&quot; or using &quot;viewevent&quot;.</p>
+<p><strong>Using &quot;navparams&quot; property:</strong>
+View has a &quot;navparams&quot; property , which use to pass data to View. &quot;navparams&quot; property further consume in view by components or StateManegment etc. Views pass data to each other during navigation.</p>
+<p><strong>Using Events :</strong></p>
+<pre class="prettyprint source lang-javascript"><code>
+        sendDataToView() {
+            let viewEvent = new ApplicationEvent(EventUtils.VIEW_EVENT, &quot;View1_Data_Change&quot;, &quot;params&quot;);
+            EventBroadCaster.appEventChannel.dispatchEvent(viewEvent);
+        }
+
+</code></pre>
+</li>
+<li>
+<p>Nested Navigation Support:</br>
+View Also have ViewNavigator as Child. This veryuseful when there is requirement for nested navigation.</br></p>
+<p>For example : TopBar Navigator have TabNavigator or BreadCrumb Navigator.</p>
+</li>
+<li>
+<p>Navigating to Previous View :</br>
+View have inbuilt provision to navigate on previous view.</br></p>
+<p>Use Back Event Handler from your view custom backbutton in &quot;addViewHandler&quot; function.</p>
+<pre class="prettyprint source lang-javascript"><code>
+    addViewHandler() {
+        super.addViewHandler();
+        let tmpviewEl = this.getViewElement();
+        // Back Navigation Event trigger by Custom Back Button
+        let backButt = tmpviewEl.querySelector(&quot;.&quot; + this.back_lnk_id);
+        backButt.addEventListener(&quot;click&quot;, (e) => { this.dispatchNavBackEvent(e); });
+    }
+
+</code></pre>
+</li>
+<li>
+<p>Navigating Forward to  Next View :</br>
+To Navigate next view , current View have to specify next view by generating Navigation event with &quot;ViewEventId &quot;. ViewNavigator can also trigger navigaion event to change current view to next view.</br></p>
+<p>In Following sample code Submit Button call &quot;handleSubmit&quot; function on click .</br></p>
+<p>After that &quot;handleSubmit&quot; function create new NavigationEvent targeting Next View by its EventId (Here &quot;View3_Nav_Event&quot;).</br></p>
+<p>Once Navigation Event created it send to ViewNavigator using EventBroadcaster on Navigation Event Channel.</br></p>
+<pre class="prettyprint source lang-javascript"><code>
+    addViewHandler() {
+        super.addViewHandler();
+        let submitButt = tmpviewEl.querySelector(&quot;.&quot; + this.submit_lnk_id);
+        submitButt.addEventListener(&quot;click&quot;, (e) => { this.handleSubmit(e); });
+    }
+
+    handleSubmit(event) {
+        event.preventDefault();
+        let navEvent = new NavigationEvent(EventUtils.NAV_CHANGE_EVENT, &quot;View3_Nav_Event&quot;, &quot;testusers&quot;, this.route);
+        EventBroadCaster.navEventChannel.dispatchEvent(navEvent);
+    }
+
+</code></pre>
+</li>
+<li>
+<p>For more details goto &quot;View&quot; class page.</p>
+</li>
+</ul>
+<h3>Container</h3>
+<ul>
+<li>
+<p>Container contains JSactions Components. Create custom container by extending base Container Class.</p>
+</li>
+<li>
+<p>By using Container managing &quot;logical&quot; group of components is very easy, such as enable or change visibility of Container will make entire child component enable or invisble.</p>
+</li>
+<li>
+<p>Container example are &quot;Login Panel&quot;, &quot;Address Panel&quot;, &quot;Dashboard Panel&quot; etc.</p>
+</li>
+<li>
+<p>For more details goto &quot;Container&quot; class page.</p>
+</li>
+</ul>
+<h3>Component</h3>
+<ul>
+<li>
+<p>Component class is the base class for all visual components.</p>
+</li>
+<li>
+<p>Component class use to manage DOM Elements such Form components or group of Elements such &quot;DataTable&quot;.</p>
+</li>
+<li>
+<p>Component provides easy DOM Elements management by providing &quot;createDOMContent&quot; method to render DOM template.</p>
+</li>
+<li>
+<p>To management behaviour of DOM elements , Base Component Class ensure to invoke eventHandling after Component render HTML DOM template. So implement eventHandling in &quot;addEventHandler&quot; method and binding property using &quot;BindingUtils&quot; in &quot;bind&quot; method.</p>
+</li>
+<li>
+<p>When setting &quot;_createDOMElement=false&quot; while creating instance of Component, Component class skip render DOM element part, assuming Component DOM Element already available and it take DOM element reference by componentId during Component creation.</p>
+</li>
+<li>
+<p>For more details goto &quot;Component&quot; class page.</p>
+</li>
+</ul>
+<h3>EventBroadcaster</h3>
+<ul>
+<li>
+<p>EventBroadCaster is Centralize Singleton Static Class use to Broadcast Events in Application on Application Channel or Navigation Channel from Publisher to Subscribers Objects such View, ViewNavigator, ViewManager, Component etc.</p>
+</li>
+<li>
+<p>It also known as Pub-Sub</p>
+</li>
+<li>
+<p>It Supports Event Communication with One to One , One to Many pattern</p>
+</li>
+<li>
+<p>EventBroadCaster provides two Event Channels .</br></p>
+<ol>
+<li>Application Event Channel 2) Navigation Event Channel</li>
+</ol>
+</li>
+<li>
+<p>For more details goto &quot;EventBroadCaster&quot; class page.</p>
+</li>
+</ul>
+<h3>EventChannel</h3>
+<ul>
+<li>
+<p>Eventchannel use to Publish event to Channel subscribers.</p>
+</li>
+<li>
+<p>Event dispatch using event channel with help of Event Broadcaster</p>
+</li>
+<li>
+<p>It also known as Message Channel</p>
+</li>
+<li>
+<p>Publish using Navigation Channel</p>
+<pre class="prettyprint source lang-javascript"><code>   //create Navigation Event
+   let helloNavEvent = new NavigationEvent(EventUtils.NAV_CHANGE_EVENT, &quot;Hello_NavEvent&quot;, &quot;Message :: Hello World !!!&quot;, &quot;/hello&quot;);
+
+   // Dispatch Navigation Event on Navigation Event Channel
+   EventBroadCaster.navEventChannel.dispatchEvent(navEvent);
+
+</code></pre>
+</li>
+<li>
+<p>Subscribe using Navigation Channel to Receive Navigation Event</p>
+<pre class="prettyprint source lang-javascript"><code>
+   EventBroadCaster.navEventChannel.addEventListener(EventUtils.NAV_CHANGE_EVENT, event => { this.handleNavChangeEvent(event); });
+
+</code></pre>
+</li>
+</ul>
+</article>
+
+</section>
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Learn more about ActionHero @ <a href="https://www.actionherojs.com">www.actionherojs.com</a>
+    <br />
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.11</a> using the <a href="https://github.com/actionhero/docdash-actionhero-theme">docdash-actionhero-theme</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+<script src="/scripts/VERSIONS.js"></script>
+<script src="/scripts/versionNavigation.js"></script>
+</body>
+</html>

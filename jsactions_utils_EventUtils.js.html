@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>jsactions/utils/EventUtils.js - ActionHero Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <script src="scripts/google-analytics.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <div id="nav-logo-container">
+        <a href="index.html">
+            <img id="nav-logo" src="images/jsactions-logo.png" />
+        </a>
+    </div>
+    <h3>Tutorials</h3><ul><li><a href="tutorial-introduction.html">Introduction</a></li><li><a href="tutorial-quickstart.html">QuickStart</a></li><li><a href="tutorial-understandhelloworld.html">Creating HelloWorldApp</a></li><li><a href="tutorial-versioninfo.html">Version Info</a></li></ul><h3>Classes</h3><ul><li><a href="BindingUtil.html">BindingUtil</a></li><li><a href="ClassError.html">ClassError</a></li><li><a href="Component.html">Component</a></li><li><a href="Container.html">Container</a></li><li><a href="core.Event.html">Event</a></li><li><a href="core.EventDispatcher.html">EventDispatcher</a></li><li><a href="ElementState.html">ElementState</a></li><li><a href="ElementUtils.html">ElementUtils</a></li><li><a href="EventBroadCasters.html">EventBroadCasters</a></li><li><a href="EventChannel.html">EventChannel</a></li><li><a href="EventRouter.html">EventRouter</a></li><li><a href="EventUtils.html">EventUtils</a></li><li><a href="GenericEvent.html">GenericEvent</a></li><li><a href="InstanceId.html">InstanceId</a></li><li><a href="NavigationEvent.html">NavigationEvent</a></li><li><a href="Router.html">Router</a></li><li><a href="View.html">View</a></li><li><a href="ViewManager.html">ViewManager</a></li><li><a href="ViewNavigator.html">ViewNavigator</a></li><li><a href="ViewStack.html">ViewStack</a></li></ul>
+    <div id="versionNavigation"></div>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">jsactions/utils/EventUtils.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/** 
+ * @license
+ * Copyright (c) 2023 Gaurang Lade
+ * 
+ * MIT License
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
+/**
+ *
+ *
+ * EventUtils is static class and provides common Event Constants.
+ */
+class EventUtils {
+    /**
+     *
+     *
+     * @readonly
+     * @static
+     * @memberof EventUtils
+     */
+    static get FORGOTPWD_NAV_EVENT() {
+        return "Forgotpwd_Nav_Event";
+    }
+
+    /**
+     *
+     *
+     * @readonly
+     * @static
+     * @memberof EventUtils
+     */
+    static get REGISTER_NAV_EVENT() {
+        return "Register_Nav_Event";
+    }
+
+    /**
+     *
+     *
+     * @readonly
+     * @static
+     * @memberof EventUtils
+     */
+    static get BACK_NAV_EVENT() {
+        return "Back_Nav_Event";
+    }
+
+    /**
+     *
+     *
+     * @readonly
+     * @static
+     * @memberof EventUtils
+     */
+    static get NAV_CHANGE_EVENT() {
+        return "navigation_change_event";
+    }
+
+    //View,Navigator Specific Events
+
+    /**
+     *
+     *
+     * @readonly
+     * @static
+     * @memberof EventUtils
+     */
+    static get INITIALIZE_EVENT() {
+        return "initialize_event";
+    }
+
+    /**
+     *
+     *
+     * @readonly
+     * @static
+     * @memberof EventUtils
+     */
+    static get ATTACHED_EVENT() {
+        return "attached_event";
+    }
+
+    /**
+     *
+     *
+     * @readonly
+     * @static
+     * @memberof EventUtils
+     */
+    static get DETACHED_EVENT() {
+        return "detached_event";
+    }
+
+    /**
+     *
+     *
+     * @readonly
+     * @static
+     * @memberof EventUtils
+     */
+    static get ACTIVATE_EVENT() {
+        return "activate_event";
+    }
+
+    /**
+     *
+     *
+     * @readonly
+     * @static
+     * @memberof EventUtils
+     */
+    static get DEACTIVATE_EVENT() {
+        return "deactivate_event";
+    }
+
+    /**
+     *
+     *
+     * @readonly
+     * @static
+     * @memberof EventUtils
+     */
+    static get CHANGE() {
+        return "change";
+    }
+
+    /**
+     *
+     *
+     * @readonly
+     * @static
+     * @memberof EventUtils
+     */
+    static get CLICK() {
+        return "click";
+    }
+
+    /**
+     *
+     *
+     * @readonly
+     * @static
+     * @memberof EventUtils
+     */
+    static get VIEW_EVENT(){
+        return "view_event";
+    }
+
+    /**
+     *
+     *
+     * @readonly
+     * @static
+     * @memberof EventUtils
+     */
+    static get MODEL_EVENT(){
+        return "model_event";
+    }
+
+    /**
+     *
+     *
+     * @readonly
+     * @static
+     * @memberof EventUtils
+     */
+    static get COMPONENT_EVENT(){
+        return "component_event";
+    }
+
+
+}
+
+export default EventUtils;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Learn more about ActionHero @ <a href="https://www.actionherojs.com">www.actionherojs.com</a>
+    <br />
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.11</a> using the <a href="https://github.com/actionhero/docdash-actionhero-theme">docdash-actionhero-theme</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+<script src="/scripts/VERSIONS.js"></script>
+<script src="/scripts/versionNavigation.js"></script>
+</body>
+</html>
